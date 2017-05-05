@@ -1,6 +1,10 @@
 import webbrowser
 import os
 import re
+from Tkinter import *
+import Tkinter as ttk
+from ttk import *
+ 
 
 # Styles and scripting for the page
 main_page_head = '''
@@ -129,6 +133,7 @@ movie_tile_content = '''
 </div>
 '''
 
+
 def create_movie_tiles_content(movies):
     # The HTML content for this section of the page
     content = ''
@@ -169,5 +174,41 @@ def open_movies_page(movies):
 
 
 def sorting_based_on_imdb_rating(movies):
-    movies.sort(key=lambda m_list: m_list.imdb_rating, reverse=True)
-    return movies
+    
+    root = Tk()
+    root.title("Tk dropdown example")
+ 
+    # Add a grid
+    mainframe = Frame(root)
+    mainframe.grid(column=0,row=0, sticky=(N,W,E,S) )
+    mainframe.columnconfigure(0, weight = 1)
+    mainframe.rowconfigure(0, weight = 1)
+    mainframe.pack(pady = 100, padx = 100)
+ 
+    # Create a Tkinter variable
+    tkvar = StringVar(root)
+ 
+    # Dictionary with options
+    choices = { 'None','IMDb','Alphabetical Order'}
+    tkvar.set('None') # set the default option
+ 
+    popupMenu = OptionMenu(mainframe, tkvar, *choices)
+    Label(mainframe, text="Choose an option to sort").grid(row = 1, column = 1)
+    popupMenu.grid(row = 2, column =1)
+ 
+    # on change dropdown value
+    #def change_dropdown(*args):
+        #print( tkvar.get() )
+ 
+    # link function to change dropdown
+    tkvar.trace('w', change_dropdown)
+ 
+    root.mainloop()
+    if tkvar.get() == 'IMDb': 
+        movies.sort(key=lambda m_list: m_list.imdb_rating, reverse=True)
+        return movies
+    elif tkvar.get() == 'Alphabetical Order':
+        movies.sort(key=lambda m: m.title, reverse=False)
+        return movies
+    else:
+        return movies
