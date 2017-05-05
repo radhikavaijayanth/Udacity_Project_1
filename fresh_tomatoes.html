@@ -1,13 +1,4 @@
-import webbrowser
-import os
-import re
-from Tkinter import *
-import Tkinter as ttk
-from ttk import *
- 
 
-# Styles and scripting for the page
-main_page_head = '''
 <head>
     <meta charset="utf-8">
     <title>Fresh Tomatoes!</title>
@@ -84,10 +75,7 @@ main_page_head = '''
         });
     </script>
 </head>
-'''
 
-# The main page layout and title bar
-main_page_content = '''
 <!DOCTYPE html>
 <html lang="en">
   <body>
@@ -115,100 +103,61 @@ main_page_content = '''
       </div>
     </div>
     <div class="container">
-      {movie_tiles}
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="KYz2wyBy3kc" data-toggle="modal" data-target="#trailer">
+    <img src="http://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg" width="220" height="342">
+    <h2>Toy Story</h2>
+    <p>A story of a boy and his toys that comes to life</p>
+    <p>Release date: July 22, 1995</p>
+    <p>Genre: Fantasy</p>
+    <p>IMDb Rating: 8</p>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="cRdxXPV9GNQ" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/b/b0/Avatar-Teaser-Poster.jpg" width="220" height="342">
+    <h2>Avatar</h2>
+    <p>A marine on an alien planet</p>
+    <p>Release date: December 18, 2009</p>
+    <p>Genre: Science Fiction</p>
+    <p>IMDb Rating: 7</p>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="JwMKRevYa_M" data-toggle="modal" data-target="#trailer">
+    <img src="https://upload.wikimedia.org/wikipedia/en/2/2d/The_Fate_of_The_Furious_Theatrical_Poster.jpg" width="220" height="342">
+    <h2>Fate of the Furious</h2>
+    <p> A story of a man with amazing car racing skills</p>
+    <p>Release date: April 14, 2017</p>
+    <p>Genre: Crime Thriller</p>
+    <p>IMDb Rating: 6</p>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="XCwy6lW5Ixc" data-toggle="modal" data-target="#trailer">
+    <img src="http://upload.wikimedia.org/wikipedia/en/1/11/School_of_Rock_Poster.jpg" width="220" height="342">
+    <h2>School of Rock</h2>
+    <p>Story about an overly enthusiastic guitarist Dewey Finn</p>
+    <p>Release date: September 24, 2003</p>
+    <p>Genre: Musical Commedy</p>
+    <p>IMDb Rating: 5</p>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="c3sBBRxDAqk" data-toggle="modal" data-target="#trailer">
+    <img src="http://upload.wikimedia.org/wikipedia/en/5/50/RatatouillePoster.jpg" width="220" height="342">
+    <h2>Ratatouille</h2>
+    <p>A story of a rat which aspires to become a chef </p>
+    <p>Release date: June 29, 2007</p>
+    <p>Genre: Drama</p>
+    <p>IMDb Rating: 10</p>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="4S9a5V9ODuY" data-toggle="modal" data-target="#trailer">
+    <img src="http://upload.wikimedia.org/wikipedia/en/4/42/HungerGamesPoster.jpg" width="220" height="342">
+    <h2>Hunger Games</h2>
+    <p>A story of a girl who plays the hunger game</p>
+    <p>Release date: March 23, 2012</p>
+    <p>Genre: Science Fiction</p>
+    <p>IMDb Rating: 9</p>
+</div>
+
     </div>
   </body>
 </html>
-'''
-
-# A single movie entry html template
-movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
-    <p>{movie_storyline}</p>
-    <p>Release date: {movie_release_date}</p>
-    <p>Genre: {movie_genre}</p>
-    <p>IMDb Rating: {movie_imdb_rating}</p>
-</div>
-'''
-
-
-def create_movie_tiles_content(movies):
-    # The HTML content for this section of the page
-    content = ''
-    for movie in movies:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
-        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
-
-        # Append the tile for the movie with its content filled in
-        content += movie_tile_content.format(
-            movie_title=movie.title,
-            movie_storyline=movie.storyline,
-            poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id,
-            movie_release_date=movie.release_date,
-            movie_genre=movie.genre,
-            movie_imdb_rating = movie.imdb_rating
-        )
-    return content
-
-def open_movies_page(movies):
-  movies = sorting_based_on_imdb_rating(movies)
-  # Create or overwrite the output file
-  output_file = open('fresh_tomatoes.html', 'w')
-
-  # Replace the placeholder for the movie tiles with the actual dynamically generated content
-  rendered_content = main_page_content.format(movie_tiles=
-                                              create_movie_tiles_content(movies))
-
-  # Output the file
-  output_file.write(main_page_head + rendered_content)
-  output_file.close()
-
-  # open the output file in the browser
-  url = os.path.abspath(output_file.name)
-  webbrowser.open('file://' + url, new=2) # open in a new tab, if possible
-
-
-def sorting_based_on_imdb_rating(movies):
-    
-    root = Tk()
-    root.title("Tk dropdown example")
- 
-    # Add a grid
-    mainframe = Frame(root)
-    mainframe.grid(column=0,row=0, sticky=(N,W,E,S) )
-    mainframe.columnconfigure(0, weight = 1)
-    mainframe.rowconfigure(0, weight = 1)
-    mainframe.pack(pady = 100, padx = 100)
- 
-    # Create a Tkinter variable
-    tkvar = StringVar(root)
- 
-    # Dictionary with options
-    choices = { 'None','IMDb','Alphabetical Order'}
-    tkvar.set('None') # set the default option
- 
-    popupMenu = OptionMenu(mainframe, tkvar, *choices)
-    Label(mainframe, text="Choose an option to sort").grid(row = 1, column = 1)
-    popupMenu.grid(row = 2, column =1)
- 
-    #on change dropdown value
-    def change_dropdown(*args):
-        print( tkvar.get() )
- 
-    # link function to change dropdown
-    tkvar.trace('w', change_dropdown)
- 
-    root.mainloop()
-    if tkvar.get() == 'IMDb': 
-        movies.sort(key=lambda m_list: m_list.imdb_rating, reverse=True)
-        return movies
-    elif tkvar.get() == 'Alphabetical Order':
-        movies.sort(key=lambda m: m.title, reverse=False)
-        return movies
-    else:
-        return movies
