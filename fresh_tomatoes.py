@@ -91,6 +91,11 @@ main_page_content = '''
 <!DOCTYPE html>
 <html lang="en">
   <body>
+ <center> <img src="http://bristolrising.com/wp-content/uploads/2011/04/1836881720_6b723fe3df.jpg" alt="Theatre Image"/> 
+  <h1> Check out your favourite movie's rating and trailer </h1>
+  <h2> It's time for some movie fun </h2>
+  </center>
+
     <!-- Trailer Video Modal -->
     <div class="modal" id="trailer">
       <div class="modal-dialog">
@@ -156,7 +161,8 @@ def create_movie_tiles_content(movies):
     return content
 
 def open_movies_page(movies):
-  movies = sorting_based_on_imdb_rating(movies)
+  # The list is passed to the sorting function to sort it according to user's choice
+  movies = sorting_based_on_user_choice(movies)
   # Create or overwrite the output file
   output_file = open('fresh_tomatoes.html', 'w')
 
@@ -173,12 +179,12 @@ def open_movies_page(movies):
   webbrowser.open('file://' + url, new=2) # open in a new tab, if possible
 
 
-def sorting_based_on_imdb_rating(movies):
+def sorting_based_on_user_choice(movies):
     
     root = Tk()
     root.title("Tk dropdown example")
  
-    # Add a grid
+    # Add a grid and specify it's attribute values
     mainframe = Frame(root)
     mainframe.grid(column=0,row=0, sticky=(N,W,E,S) )
     mainframe.columnconfigure(0, weight = 1)
@@ -192,6 +198,7 @@ def sorting_based_on_imdb_rating(movies):
     choices = { 'None','IMDb','Alphabetical Order'}
     tkvar.set('None') # set the default option
  
+    # Sets up the label for the popup menu
     popupMenu = OptionMenu(mainframe, tkvar, *choices)
     Label(mainframe, text="Choose an option to sort").grid(row = 1, column = 1)
     popupMenu.grid(row = 2, column =1)
@@ -203,12 +210,16 @@ def sorting_based_on_imdb_rating(movies):
     # link function to change dropdown
     tkvar.trace('w', change_dropdown)
  
+    # mainloop to prevent automatic closing when it reaches end  of script
     root.mainloop()
+    # Sort descending according to the IMDb rating
     if tkvar.get() == 'IMDb': 
         movies.sort(key=lambda m_list: m_list.imdb_rating, reverse=True)
         return movies
+    # Sort alphabetically ascending according to the movie names
     elif tkvar.get() == 'Alphabetical Order':
         movies.sort(key=lambda m: m.title, reverse=False)
         return movies
+    # Default display without sorting
     else:
         return movies

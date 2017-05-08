@@ -5,7 +5,7 @@ import fresh_tomatoes
 
 """ Creates six Movie objects, instantiates these objects with title, storyline,
     poster image link, video trailer link,release date,
-    genre and imdb rating out of 10."""
+    genre and imdb rating out of 10. """
 
 toy_story = media.Movie("Toy Story",
                         "A story of a boy and his toys that comes to life",
@@ -51,10 +51,10 @@ hunger_games = media.Movie("Hunger Games",
                            9)
 
 
-""" Stores the 6 movies objects in a list """  
+# Stores the 6 movies objects in a list 
 movies = [toy_story,avatar,foftf,school_of_rock,ratatouille,hunger_games]
 
-"This functions takes the  movie list as input and renders the output in a web browser"""
+# This functions takes the  movie list as input and renders the output in a web browser
 fresh_tomatoes.open_movies_page(movies)
 
 

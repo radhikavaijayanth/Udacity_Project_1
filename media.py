@@ -10,7 +10,7 @@ class Movie() :
         trailer_youtube_url: A string which has the URL of the movie trailer.
         release_date: A string which has the release date of the movie.
         genre : A string which has the genre of the movie.
-        imdb_rating : A string which has the IMDb rating for the movie.  
+        imdb_rating : An integer which has the IMDb rating for the movie.  
     """
     def __init__(self, movie_title, movie_storyline, poster_image,
                  trailer_youtube, movie_release_date, movie_genre,
