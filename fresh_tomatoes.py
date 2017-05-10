@@ -181,6 +181,7 @@ def open_movies_page(movies):
 
 def sorting_based_on_user_choice(movies):
     
+    # Creating the object for class Tk
     root = Tk()
     root.title("Tk dropdown example")
  
@@ -210,7 +211,7 @@ def sorting_based_on_user_choice(movies):
     # link function to change dropdown
     tkvar.trace('w', change_dropdown)
  
-    # mainloop to prevent automatic closing when it reaches end  of script
+    # mainloop to prevent automatic closing when it reaches end of script
     root.mainloop()
     # Sort descending according to the IMDb rating
     if tkvar.get() == 'IMDb': 
