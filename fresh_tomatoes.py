@@ -196,8 +196,8 @@ def sorting_based_on_user_choice(movies):
     tkvar = StringVar(root)
  
     # Dictionary with options
-    choices = { 'None','IMDb','Alphabetical Order'}
-    tkvar.set('None') # set the default option
+    choices = { 'Alphabetical Order','IMDb','None'}
+    tkvar.set('Alphabetical Order') # set the default option
  
     # Sets up the label for the popup menu
     popupMenu = OptionMenu(mainframe, tkvar, *choices)
@@ -217,10 +217,10 @@ def sorting_based_on_user_choice(movies):
     if tkvar.get() == 'IMDb': 
         movies.sort(key=lambda m_list: m_list.imdb_rating, reverse=True)
         return movies
-    # Sort alphabetically ascending according to the movie names
-    elif tkvar.get() == 'Alphabetical Order':
-        movies.sort(key=lambda m: m.title, reverse=False)
-        return movies
     # Default display without sorting
+    elif tkvar.get() == 'None':
+        return movies
+    # Sort alphabetically ascending according to the movie names
     else:
+        movies.sort(key=lambda m: m.title, reverse=False)
         return movies
