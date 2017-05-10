@@ -183,7 +183,7 @@ def sorting_based_on_user_choice(movies):
     
     # Creating the object for class Tk
     root = Tk()
-    root.title("Tk dropdown example")
+    root.title("Dropdown to choose sort option for movie")
  
     # Add a grid and specify it's attribute values
     mainframe = Frame(root)
