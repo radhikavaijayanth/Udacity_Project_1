@@ -11,7 +11,7 @@
 - This project consists of the following files:
     - entertainment_center.py - Stores the details of the movie objects
     - media.py - Stores the class definition of class Movie with it's data members and member function.
-    - fresh_tomatoes.py - This has the code to render the movie details in a web browser.
+    - fresh_tomatoes.py - This has the code to render the movie details in a web browser. It was given by Udacity and I made         my own changes as required. 
 - Open terminal in Linux/Mac and command prompt in Windows
 - Move to the directory which has the project files
 - Type python entertainment_center.py
@@ -31,5 +31,6 @@
 - In addition to title and poster image,storyline,release date,genre and IMDb rating are also displayed.
 # Extra Notes
 - This program uses Tkinter module that is there in python versions 2.x
+- The syntax for using Tkinter (GUI programming) was refered here https://pythonspot.com/en/tk-dropdown-example/
 
 
