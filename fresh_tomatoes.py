@@ -221,5 +221,5 @@ def sorting_based_on_user_choice(movies):
         return movies
     # Sort alphabetically ascending according to the movie names
     else:
-        movies.sort(key=lambda m: m.title, reverse=False)
+        movies.sort(key=lambda m_list: m_list.title, reverse=False)
         return movies
