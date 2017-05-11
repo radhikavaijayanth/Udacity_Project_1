@@ -1,4 +1,4 @@
-"""Contains movie details to be displayed on a website."""
+""" Contains movie details to be displayed on the website. """
 
 import media
 import fresh_tomatoes
@@ -54,7 +54,7 @@ hunger_games = media.Movie("Hunger Games",
 # Stores the 6 movies objects in a list 
 movies = [toy_story,avatar,foftf,school_of_rock,ratatouille,hunger_games]
 
-# This functions takes the  movie list as input and renders the output in a web browser
+# This functions takes the movie list as input and renders the output in a web browser
 fresh_tomatoes.open_movies_page(movies)
 
 

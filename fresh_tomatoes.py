@@ -5,7 +5,6 @@ from Tkinter import *
 import Tkinter as ttk
 from ttk import *
  
-
 # Styles and scripting for the page
 main_page_head = '''
 <head>
